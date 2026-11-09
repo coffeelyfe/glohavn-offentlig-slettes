@@ -21,7 +21,7 @@ async function withServe(run) {
     await new Promise((resolve, reject) => {
       const timer = setTimeout(() => reject(new Error('serve.mjs did not start')), 8000)
       child.stdout.on('data', (d) => {
-        if (String(d).includes('Bot Crossing')) {
+        if (String(d).includes('Glohavn')) {
           clearTimeout(timer)
           resolve()
         }

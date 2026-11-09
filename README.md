@@ -1,6 +1,14 @@
-# Bot Crossing — your agent threads, as a colony
+# Glohavn — byen i Glo
 
-**[botcrossing.com](https://botcrossing.com)**
+Glohavn er byen i Glo: hvert produkt er en tomt, hver forespørsel på Foundry-bussen er en bot, og boten stopper med «?» når noe venter på deg. Adapteren mot bussen er `server/harnesses/foundry.mjs`.
+
+Glohavn er en fork av **[Bot Crossing](https://github.com/Station-Sciences/bot-crossing)** av **[Jarren Rocks](https://jarren.rocks)**, under MIT. Takk, Jarren. Navnet «Bot Crossing» og figurdesign laget etter 16. sep 2026 tilhører opphavet (se [TRADEMARKS.md](TRADEMARKS.md)); Glohavn er ikke støttet eller vedlikeholdt av Bot Crossing. Resten av denne README-en er fra opphavet og gjelder fortsatt.
+
+Kjør den mot bussen fra Mac-en:
+
+```bash
+FOUNDRY_ROT=../backlog FOUNDRY_BUS_TOKEN_FIL=<fila Foundry-appen skriver tokenet til> npm run dev
+```
 
 Every coding-agent thread on this machine is a little bot. They walk out of the ship, claim
 a plot for their repo, and build something. When one needs you it stops and holds a `?` over
@@ -36,7 +44,7 @@ A setting, *Open threads in*, makes the terminal the first choice rather than th
 
 ## Which harnesses work
 
-A **harness** is whatever actually runs your threads. Bot Crossing reads each one's local
+A **harness** is whatever actually runs your threads. Glohavn reads each one's local
 session files through a small adapter, so support is per-harness and mostly a matter of
 somebody writing that adapter.
 
@@ -910,7 +918,7 @@ untouched, and the colony lays itself out again from scratch.
 
 ## Building your own
 
-Bot Crossing is one shape this idea can take. `.claude/skills/agent-session-world/` is a skill for
+Glohavn (like Bot Crossing before it) is one shape this idea can take. `.claude/skills/agent-session-world/` is a skill for
 building the others — fish in a reef, animals in a forest, villagers, ants, boats in a harbour.
 Whatever inhabits it, the structure underneath is the same: a layout that stays put so you can
 learn the map, one draw call for the whole crowd, a single source of truth for what a thread is
