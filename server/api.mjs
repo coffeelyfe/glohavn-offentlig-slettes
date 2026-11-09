@@ -12,6 +12,8 @@ import {
   harnessStatus,
   newSession as harnessNewSession,
   openThread as harnessOpenThread,
+  closeThread as harnessCloseThread,
+  pauseThread as harnessPauseThread,
   scanThreads,
 } from './scan.mjs'
 
@@ -477,6 +479,13 @@ export async function apiMiddleware(req, res, next) {
       const body = await readJsonBody(req)
       const shown = await present(await harnessOpenThread(body.harness, body.ref), viaOf(body))
       return send(res, shown.ok ? 200 : 400, shown)
+    }
+
+    if ((url.pathname === '/api/close' || url.pathname === '/api/pause') && req.method === 'POST') {
+      const body = await readJsonBody(req)
+      const run = url.pathname === '/api/close' ? harnessCloseThread : harnessPauseThread
+      const done = await run(body.harness, body.ref)
+      return send(res, done.ok ? 200 : 400, done)
     }
 
     if ((url.pathname === '/api/new-session' || url.pathname === '/api/reveal') && req.method === 'POST') {

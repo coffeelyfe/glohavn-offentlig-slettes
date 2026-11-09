@@ -107,6 +107,10 @@ export async function saveState(state) {
  */
 export const openThread = (thread, via) => post('/api/open', { harness: thread.harness, ref: thread.ref, via })
 
+/** End a thread in its harness (Foundry: the room is archived), or stop the work it is doing now. */
+export const closeThread = (thread) => post('/api/close', { harness: thread.harness, ref: thread.ref })
+export const pauseThread = (thread) => post('/api/pause', { harness: thread.harness, ref: thread.ref })
+
 /** A brand new thread in a repo, via that harness's own new-session deep link. */
 export const newSession = (folder, harness, via) => post('/api/new-session', { folder, harness, via })
 

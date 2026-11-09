@@ -20,6 +20,8 @@ import {
   fetchState,
   saveState,
   openThread,
+  closeThread,
+  pauseThread,
   newSession,
   revealFolder,
 } from './game/api.js'
@@ -397,6 +399,32 @@ const actions = {
       setTimeout(poll, 1800)
     } catch (err) {
       hud.toast(err.message || 'Could not open that thread', 'err')
+    }
+  },
+
+  // Avslutt og Vent skriver til bussen gjennom adapteren; den neste skanningen viser resultatet.
+  closeThread: async () => {
+    const thread = threads.find((t) => t.id === selectedId)
+    if (!thread) return
+    try {
+      await closeThread(thread)
+      select(null, {})
+      hud.toast(`Avsluttet ${thread.title}`)
+      colony.ship.ping()
+      setTimeout(poll, 800)
+    } catch (err) {
+      hud.toast(err.message || 'Kunne ikke avslutte', 'err')
+    }
+  },
+  pauseThread: async () => {
+    const thread = threads.find((t) => t.id === selectedId)
+    if (!thread) return
+    try {
+      await pauseThread(thread)
+      hud.toast(`${thread.title} stopper og venter på deg`)
+      setTimeout(poll, 800)
+    } catch (err) {
+      hud.toast(err.message || 'Kunne ikke stoppe', 'err')
     }
   },
 

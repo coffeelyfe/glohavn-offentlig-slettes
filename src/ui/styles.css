@@ -644,6 +644,10 @@ body {
   height: 34px;
 }
 
+.thread-pop .pair .btn[hidden] {
+  display: none;
+}
+
 .progress {
   height: 5px;
   border-radius: 3px;

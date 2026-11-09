@@ -185,3 +185,13 @@ const dispatch = (harnessId) => {
 export const openThread = async (harnessId, ref) => dispatch(harnessId).openThread(ref)
 
 export const newSession = async (harnessId, dir) => dispatch(harnessId).newSession(dir)
+
+/** Optional: only harnesses that can end or pause a thread themselves have these (Foundry). */
+export const closeThread = async (harnessId, ref) => {
+  const h = dispatch(harnessId)
+  return h.closeThread ? h.closeThread(ref) : { ok: false, error: 'This harness cannot end threads' }
+}
+export const pauseThread = async (harnessId, ref) => {
+  const h = dispatch(harnessId)
+  return h.pauseThread ? h.pauseThread(ref) : { ok: false, error: 'This harness cannot pause threads' }
+}

@@ -461,6 +461,8 @@ export class Hud {
     on('#btn-open', 'click', () => this.actions.openThread?.())
     on('#btn-viewed', 'click', () => this.actions.markViewed?.())
     on('#btn-archive', 'click', () => this.actions.archiveThread?.())
+    on('#btn-pause', 'click', () => this.actions.pauseThread?.())
+    on('#btn-close', 'click', () => this.actions.closeThread?.())
     on('.thread-pop .title', 'dblclick', () => this.startRename())
     on('#btn-deselect', 'click', () => this.actions.select?.(null))
     on('#btn-follow', 'click', () => this.settings.set('followSelected', !this.settings.get('followSelected')))
@@ -817,6 +819,11 @@ export class Hud {
     // crowd the two that are always worth having, and "Viewed" on a thread that is not asking
     // for anything is a control with no effect.
     this.$('#btn-viewed').hidden = !thread.unread
+    // Bare tråder som kan avsluttes eller stoppes i sin egen harness (Foundry-bussen) får knappene.
+    this.$('#btn-pause').hidden = !thread.canPause
+    this.$('#btn-close').hidden = !thread.canClose
+    // Avslutt erstatter Archive der den finnes: en avsluttet bot forsvinner fra bussen, ikke bare fra kartet.
+    this.$('#btn-archive').hidden = !!thread.canClose
   }
 
   /**
@@ -1370,6 +1377,8 @@ const TEMPLATE = `
     <button class="btn primary" id="btn-open" title="Open this thread in the harness it came from (Enter)">${ICON.open} Open</button>
     <button class="btn" id="btn-viewed" title="Stop this thread asking for you until it moves on again (V)">${ICON.eye} Viewed</button>
     <button class="btn" id="btn-archive" title="Archive — this bot walks back to the ship (A)">${ICON.archive} Archive</button>
+    <button class="btn" id="btn-pause" title="Stopp arbeidet, så venter den på deg" hidden>Vent</button>
+    <button class="btn" id="btn-close" title="Avslutt rommet på bussen" hidden>Avslutt</button>
   </div>
 </div>
 
